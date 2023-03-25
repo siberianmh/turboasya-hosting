@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: turboasya
+  labels:
+    app: turboasya
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: turboasya
+  template:
+    metadata:
+      labels:
+        app: turboasya
+    spec:
+      containers:
+        - name: turboasya
+          image: ghcr.io/siberianmh/turboasya:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1000Mi
+            requests:
+              cpu: 250m
+              memory: 400Mi
+          envFrom:
+            - secretRef:
+                name: turboasya-secret
+          env:
+            - name: STORAGE
+              value: s3
+            - name: S3_REGION # Region where the bucket is placed, default is us-east-1
+              value: us-east-1
+            - name: S3_BASE_URL # A path for the s3
+              value: https://s3.amazonaws.com/
+            - name: S3_BUCKET_NAME # A name for the bucket
+              value: turboasya
+          ports:
+            - containerPort: 8080
