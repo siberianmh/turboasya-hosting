@@ -5,7 +5,7 @@
 ```sh
 docker run --rm \
   --publish 8080:8080 \
-  -e MYSQL_DSN="mysql://root:root@tcp(127.0.0.1:3306)/turboasya" \
+  -e MYSQL_DSN="root:root@tcp(127.0.0.1:3306)/turboasya" \
   -e STORAGE="disk" \
   -e DISK_PATH="/mnt/data" \
   -v ~/.turboasya-data:/mnt/data \
